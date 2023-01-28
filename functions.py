@@ -194,7 +194,7 @@ def formaterResultatFinal(cheminEmprunte):
     resultatFinal = ""
     debut = True
     for elt in cheminEmprunte:
-        if debut == True:
+        if debut :
             debut = False
             resultatFinal = resultatFinal + elt
         else:
@@ -241,40 +241,40 @@ def symboleAt(posInitiale, direction):
     
     elif direction == 'UL':
         # Symbole sur la case correspondante
-        if lignePaire == True:
+        if lignePaire :
             caseUL = dicoMaze[posInitiale[0]-1][posInitiale[1]-1]
             return caseUL
 
-        elif lignePaire == False:
+        elif not lignePaire:
             caseUL = dicoMaze[posInitiale[0]-1][posInitiale[1]]
             return caseUL
 
     elif direction == 'UR':
         # Symbole sur la case correspondante
-        if lignePaire == True:
+        if lignePaire :
             caseUR = dicoMaze[posInitiale[0]-1][posInitiale[1]]
             return caseUR
 
-        elif lignePaire == False:
+        elif not lignePaire:
             caseUR = dicoMaze[posInitiale[0]-1][posInitiale[1]+1]
             return caseUR
 
     elif direction == 'DR':
         # Symbole sur la case correspondante
-        if lignePaire == True:
+        if lignePaire :
             caseDR = dicoMaze[posInitiale[0]+1][posInitiale[1]]
             return caseDR
-        elif lignePaire == False:
+        elif not lignePaire:
             caseDR = dicoMaze[posInitiale[0]+1][posInitiale[1]+1]
             return caseDR
     
     elif direction == 'DL':
         # Symbole sur la case correspondante
-        if lignePaire == True:
+        if lignePaire :
             caseDL = dicoMaze[posInitiale[0]+1][posInitiale[1]-1]
             return caseDL
 
-        elif lignePaire == False:
+        elif not lignePaire:
             caseDL = dicoMaze[posInitiale[0]+1][posInitiale[1]]
             return caseDL
 
@@ -344,7 +344,7 @@ def retourArriereCle(posInitiale, direction, demiTourCle, directionRetourCle):
         return "surCle"
     
     # Permet le retour en arriere si clé recup et marche arriere depuis clé mais sur un case suivante
-    elif demiTourCle == True and directionRetourCle[len(directionRetourCle)-1] == dicoDirectionOpposee[direction]:
+    elif demiTourCle  and directionRetourCle[len(directionRetourCle)-1] == dicoDirectionOpposee[direction]:
         return "autorise"
 
 # Determine si posCible est hors labyrinthe
@@ -412,9 +412,9 @@ def determinerNouvellePosition(posInitiale, directionDeterminer):
 
         # ...determine la nouvelle pos
         posInitiale.append(ligne-1)
-        if lignePaire == True:
+        if lignePaire :
             posInitiale.append(caractere-1)
-        elif lignePaire == False:
+        elif not lignePaire:
             posInitiale.append(caractere)
 
         return posInitiale
@@ -423,9 +423,9 @@ def determinerNouvellePosition(posInitiale, directionDeterminer):
 
         # ...determine la nouvelle pos
         posInitiale.append(ligne-1)
-        if lignePaire == True:
+        if lignePaire :
             posInitiale.append(caractere)
-        elif lignePaire == False:
+        elif not lignePaire:
             posInitiale.append(caractere+1)
         
         return posInitiale
@@ -434,9 +434,9 @@ def determinerNouvellePosition(posInitiale, directionDeterminer):
 
         # ...determine la nouvelle pos
         posInitiale.append(ligne+1)
-        if lignePaire == True:
+        if lignePaire :
             posInitiale.append(caractere)
-        elif lignePaire == False:
+        elif not lignePaire:
             posInitiale.append(caractere+1)
 
         return posInitiale
@@ -445,9 +445,9 @@ def determinerNouvellePosition(posInitiale, directionDeterminer):
 
         # ...determine la nouvelle pos
         posInitiale.append(ligne+1)
-        if lignePaire == True:
+        if lignePaire :
             posInitiale.append(caractere-1)
-        elif lignePaire == False:
+        elif not lignePaire:
             posInitiale.append(caractere)
         
         return posInitiale
@@ -476,7 +476,7 @@ def nePasAvancer(dicoHistorique, posInitiale, direction, dicoGlissade, dateDebut
     
     # Empecher la répetition
     stop = empecherRepetition(dicoHistorique, posInitiale, direction, dicoGlissade)
-    if stop == True:
+    if stop :
         return True
     else: pass
 
@@ -494,7 +494,7 @@ def nePasAvancer(dicoHistorique, posInitiale, direction, dicoGlissade, dateDebut
         or retourArriereCle(posInitiale, direction, demiTourCle, directionRetourCle) == "autorise":
         pass
     # Empecher le retour en arrière
-    elif empecherRetourArriere(direction) == True:
+    elif empecherRetourArriere(direction) :
         demiTourCle = False
         return True
     else: 
@@ -502,7 +502,7 @@ def nePasAvancer(dicoHistorique, posInitiale, direction, dicoGlissade, dateDebut
         pass
     
     # Si bord de map
-    if determinerBordDeMap(posInitiale, direction) == True:
+    if determinerBordDeMap(posInitiale, direction) :
         return True
     else: pass
 
@@ -580,7 +580,7 @@ def avancer(posInitiale, direction, dateDebut):
     global eDetecte
 
     # N'avance pas si repetition, nb max de direction atteinte, retour arrière ou bord de map
-    if nePasAvancer(dicoHistorique, posInitiale, direction, dicoGlissade, dateDebut) == True:
+    if nePasAvancer(dicoHistorique, posInitiale, direction, dicoGlissade, dateDebut) :
         return posInitiale
     else: pass
 
@@ -599,9 +599,9 @@ def avancer(posInitiale, direction, dateDebut):
 
         # Selon statut glissade determine si il est possible d'avancer et agit en conséquences(enregistre la direction prise)
         decisionAvancer = deplacement(statutGlissade, direction, posInitiale, case,situation="E")
-        if decisionAvancer == True:
+        if decisionAvancer :
             pass
-        elif decisionAvancer == False:
+        elif not decisionAvancer:
             return posInitiale
 
         # Nouvelle position
@@ -614,9 +614,9 @@ def avancer(posInitiale, direction, dateDebut):
 
         # Selon statut glissade determine si il est possible d'avancer et agit en conséquences(enregistre la direction prise)
         decisionAvancer = deplacement(statutGlissade, direction, posInitiale, case, situation=".")
-        if decisionAvancer == True:
+        if decisionAvancer :
             pass
-        elif decisionAvancer == False:
+        elif not decisionAvancer:
             return posInitiale
 
         # Nouvelle position
@@ -629,9 +629,9 @@ def avancer(posInitiale, direction, dateDebut):
 
         # Selon statut glissade determine si il est possible d'avancer et agit en conséquences(enregistre la direction prise)
         decisionAvancer = deplacement(statutGlissade, direction, posInitiale, case, situation="_")
-        if decisionAvancer == True:
+        if decisionAvancer :
             pass
-        elif decisionAvancer == False:
+        elif not decisionAvancer:
             return posInitiale
 
         # Nouvelle position
@@ -672,7 +672,7 @@ def fonctionRecursive(posInitiale, dateDebut):
             fonctionRecursive(posInitialeSuivante, dateDebut)
 
         # Si fin car E trouvé donc enregistrement du chemin
-        if eDetecte == True:
+        if eDetecte :
             eDetecte = False
             cheminsResultats.append(cheminEmprunte.copy())
 
@@ -751,7 +751,7 @@ def determinerMessageResultat(cheminResultat):
 # Variables----------------------------------------------------------------------------------------------------
 
 # Labyrinthe
-dicoMaze, w, h = dicoLabyrinthe(1)
+dicoMaze, w, h = dicoLabyrinthe(10)
 
 # Nombre max de direction que l'algo peut prendre
 nb_max_direction = 20 # 16=> lab11; 7=> lab10; 20=> les autres
